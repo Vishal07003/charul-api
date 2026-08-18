@@ -8,6 +8,7 @@ urlpatterns = [
     path("api/projects/", include("apps.projects.urls")),
     path("api/categories/", include("apps.categories.urls")),
     path("api/services/", include("apps.services.urls")),
+    path("api/home/", include("apps.home.urls")),
 ]
 
 if settings.DEBUG:
