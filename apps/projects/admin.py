@@ -1,4 +1,27 @@
 from django.contrib import admin
 from .models import Project
 
-admin.site.register(Project)
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "category",
+        "location",
+        "year",
+        "created_at",
+    )
+
+    list_filter = (
+        "category",
+        "year",
+    )
+
+    search_fields = (
+        "name",
+        "location",
+        "description",
+    )
+
+    ordering = ("-created_at",)

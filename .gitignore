@@ -1,12 +1,11 @@
 .env
 venv
+.venv
 __pycache__
 .vscode
 .idea
-# Virtual Environment
-.env/
-venv/
-env/
+
+
 
 # Python
 __pycache__/
