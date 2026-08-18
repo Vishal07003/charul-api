@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.services',
     'apps.home',
+    'apps.reviews',
 ]
 
 # Middleware
