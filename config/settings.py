@@ -10,9 +10,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Applications
-
 INSTALLED_APPS = [
     # Django apps
     'django.contrib.admin',
@@ -26,6 +23,9 @@ INSTALLED_APPS = [
 
     'apps.categories',
     'apps.projects',
+    'apps.services',
+    'apps.home',
+    'apps.reviews',
 ]
 
 # Middleware

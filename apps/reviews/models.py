@@ -2,21 +2,36 @@ from django.db import models
 
 
 class Review(models.Model):
+
+    TYPE_CHOICES = [
+        ("text", "Text"),
+        ("video", "Video"),
+    ]
+
     name = models.CharField(max_length=255)
 
-    image = models.ImageField(
-        upload_to="reviews/",
+    type = models.CharField(
+        max_length=10,
+        choices=TYPE_CHOICES
+    )
+
+    photo = models.ImageField(
+        upload_to="reviews/photos/",
         blank=True,
         null=True
     )
 
-    rating = models.PositiveIntegerField()
+    video = models.FileField(
+        upload_to="reviews/videos/",
+        blank=True,
+        null=True
+    )
 
-    comment = models.TextField()
+    description = models.TextField()
 
     created_at = models.DateTimeField(
         auto_now_add=True
     )
 
     def __str__(self):
-        return f"{self.name} - {self.rating}"
+        return self.name
