@@ -1,12 +1,8 @@
 from rest_framework.routers import DefaultRouter
-from .views import HomeViewSet
+from .views import ProcessViewSet
 
 router = DefaultRouter()
 
-router.register(
-    "",
-    HomeViewSet,
-    basename="home"
-)
+router.register( "", ProcessViewSet, basename="process")
 
 urlpatterns = router.urls

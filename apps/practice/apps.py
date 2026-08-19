@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-class HomeConfig(AppConfig):
+class PracticeConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.home"
-    verbose_name = "Home Page Images"
+    name = "apps.practice"
+    verbose_name = "Practice"

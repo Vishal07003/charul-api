@@ -1,16 +1,18 @@
 from django.contrib import admin
-from .models import Project
+from django.utils.html import format_html
 
+from .models import Project
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "id",
+        "image_preview",
         "name",
         "category",
         "location",
         "year",
-        "created_at",
+        "scope",
     )
 
     list_filter = (
@@ -21,7 +23,27 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = (
         "name",
         "location",
+        "scope",
         "description",
     )
 
-    ordering = ("-created_at",)
+    ordering = (
+        "-year",
+        "-id",
+    )
+
+    readonly_fields = (
+        "image_preview",
+    )
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="100" height="70" '
+                'style="object-fit:cover; border-radius:6px;" />',
+                obj.image.url,
+            )
+
+        return "No image"
+
+    image_preview.short_description = "Preview"

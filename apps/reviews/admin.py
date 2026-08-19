@@ -1,10 +1,18 @@
 from django.contrib import admin
 from django.utils.html import format_html
+
 from .models import Review
+from .forms import ReviewAdminForm
 
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+
+    form = ReviewAdminForm
+
+    class Media:
+        js = ("admin/reviews.js",)
+
     list_display = (
         "id",
         "name",
@@ -22,7 +30,9 @@ class ReviewAdmin(admin.ModelAdmin):
         "description",
     )
 
-    ordering = ("-created_at",)
+    ordering = (
+        "-created_at",
+    )
 
     readonly_fields = (
         "photo_preview",
@@ -31,9 +41,11 @@ class ReviewAdmin(admin.ModelAdmin):
     def photo_preview(self, obj):
         if obj.photo:
             return format_html(
-                '<img src="{}" width="80" height="60" style="object-fit: cover;" />',
+                '<img src="{}" width="80" height="60" '
+                'style="object-fit:cover;border-radius:6px;" />',
                 obj.photo.url,
             )
+
         return "No photo"
 
     photo_preview.short_description = "Photo"

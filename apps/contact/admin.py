@@ -5,6 +5,13 @@ from .models import Contact
 class ContactAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "instagram",
-        "facebook",
+        "phone",
+        "email",
+        "studio",
+    )
+
+    search_fields = (
+        "phone",
+        "email",
+        "studio",
     )

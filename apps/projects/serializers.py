@@ -17,6 +17,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "description",
             "location",
             "year",
+            "scope",
             "category",
             "category_name",
             "created_at",
