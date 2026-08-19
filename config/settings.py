@@ -1,9 +1,7 @@
 from pathlib import Path
 from decouple import config, Csv
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Security
 SECRET_KEY = config("SECRET_KEY")
@@ -14,7 +12,6 @@ ALLOWED_HOSTS = config(
     default="127.0.0.1,localhost",
     cast=Csv()
 )
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -34,8 +31,10 @@ INSTALLED_APPS = [
     "apps.home",
     "apps.reviews",
     "apps.contact",
+    "apps.practice",
+    "apps.stats",
+    "apps.process",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -57,7 +56,6 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = "config.urls"
-
 
 TEMPLATES = [
     {

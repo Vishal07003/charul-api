@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Hero
+from .models import Home
 
-class HeroSerializer(serializers.ModelSerializer):
+class HomeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Hero
+        model = Home
         fields = [
             "id",
             "image",

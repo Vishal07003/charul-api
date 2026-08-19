@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from .models import Hero
-from .serializers import HeroSerializer
+from .models import Home
+from .serializers import HomeSerializer
 
-class HeroViewSet(viewsets.ModelViewSet):
-    queryset = Hero.objects.all()
-    serializer_class = HeroSerializer
+class HomeViewSet(viewsets.ModelViewSet):
+    queryset = Home.objects.all()
+    serializer_class = HomeSerializer

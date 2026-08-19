@@ -1,12 +1,12 @@
 from rest_framework.routers import DefaultRouter
-from .views import HomeViewSet
+from .views import PracticeViewSet
 
 router = DefaultRouter()
 
 router.register(
     "",
-    HomeViewSet,
-    basename="home"
+    PracticeViewSet,
+    basename="practice"
 )
 
 urlpatterns = router.urls
