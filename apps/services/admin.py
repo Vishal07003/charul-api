@@ -7,7 +7,6 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
-        "description",
     )
 
     search_fields = (
