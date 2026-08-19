@@ -1,9 +1,9 @@
 from django.db import models
 
 
-class Hero(models.Model):
+class Home(models.Model):
     image = models.ImageField(
-        upload_to="hero/"
+        upload_to="home/"
     )
 
     created_at = models.DateTimeField(
@@ -11,4 +11,4 @@ class Hero(models.Model):
     )
 
     def __str__(self):
-        return f"Hero Image {self.id}"
+        return f"Home Page Image {self.id}"
