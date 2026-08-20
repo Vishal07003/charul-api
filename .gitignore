@@ -28,9 +28,8 @@ media/
 # Docker / SQLite data volume
 data/
 
-# Static files
-staticfiles/
-static/
+# Static files (collectstatic build output — not the apps/*/static/ source dirs)
+/staticfiles/
 
 # IDE
 .vscode/
