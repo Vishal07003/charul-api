@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
-from .models import Contact
-from .serializers import ContactSerializer
+from .models import Contact, Lead
+from .serializers import ContactSerializer, LeadSerializer
 
 
 class ContactViewSet(viewsets.ModelViewSet):
@@ -30,3 +30,14 @@ class ContactViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
 
         return super().create(request, *args, **kwargs)
+
+
+class LeadViewSet(viewsets.ModelViewSet):
+    queryset = Lead.objects.all()
+    serializer_class = LeadSerializer
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [AllowAny()]
+
+        return [IsAdminUser()]

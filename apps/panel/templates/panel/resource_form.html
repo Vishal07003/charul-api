@@ -1,0 +1,38 @@
+{% extends "panel/base.html" %}
+{% block title %}{% if is_create %}Add{% else %}Edit{% endif %} {{ resource.singular }} — Charul Construction Console{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div class="page-eyebrow">Sheet {{ sheet_code }} · {{ resource.label }}</div>
+    <h1 class="page-title">{% if is_create %}Add {{ resource.singular|lower }}{% else %}Edit {{ resource.singular|lower }}{% endif %}</h1>
+</div>
+
+<div class="sheet">
+    <div class="sheet-bar">
+        <div class="sheet-bar-title">{{ resource.singular }} details</div>
+        <div class="sheet-bar-code">{{ sheet_code }}</div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="spec-form">
+        {% csrf_token %}
+        <div class="spec-grid">
+            {% for field in form %}
+            <div class="field{% if field.field.widget.input_type == 'checkbox' %} field-inline{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="field-help">{{ field.help_text }}</p>{% endif %}
+                {% if field.errors %}
+                    <ul class="field-errors">
+                        {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Save {{ resource.singular|lower }}</button>
+            <a class="btn-secondary" href="{% url 'panel:resource_list' key=key %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

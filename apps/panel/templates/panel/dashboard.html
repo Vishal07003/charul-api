@@ -1,0 +1,19 @@
+{% extends "panel/base.html" %}
+{% block title %}Overview — Charul Construction Console{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div class="page-eyebrow">Sheet {{ sheet_code }} · Overview</div>
+    <h1 class="page-title">Construction records</h1>
+    <p class="page-lede">Every collection that feeds the public site, in one index. Open a sheet to add, edit, or retire a record.</p>
+</div>
+
+<div class="tile-grid">
+    {% for item in counts %}
+    <a class="tile" href="{% url 'panel:resource_list' key=item.key %}">
+        <span class="tile-code">{{ item.key }}</span>
+        <span class="tile-count">{{ item.count|stringformat:"02d" }}</span>
+        <span class="tile-label">{{ item.label }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

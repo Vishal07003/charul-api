@@ -1,0 +1,41 @@
+{% extends "panel/base.html" %}
+{% block title %}Log in — Charul Construction Console{% endblock %}
+{% block content_anon %}
+<div class="login-screen">
+    <div class="login-card">
+        <div class="login-brand">
+            <span class="brand-mark">CH</span>
+            <div class="brand-text">
+                <span class="brand-name">Charul</span>
+                <span class="brand-sub">Construction Console</span>
+            </div>
+        </div>
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="login-eyebrow">Sign in to manage the site</div>
+
+            {% if form.non_field_errors %}
+                <ul class="messages">
+                    {% for error in form.non_field_errors %}
+                        <li class="message error">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="field">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="field">
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="btn-primary btn-block">Log in</button>
+        </form>
+
+        <div class="login-foot">Sheet A-00 · Access Control</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Console — Charul Construction{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'panel/css/panel.css' %}">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div class="shell">
+        <nav class="sidebar">
+            <div class="brand">
+                <span class="brand-mark">CH</span>
+                <div class="brand-text">
+                    <span class="brand-name">Charul</span>
+                    <span class="brand-sub">Construction Console</span>
+                </div>
+            </div>
+
+            <div class="nav-eyebrow">Sheet Index</div>
+            <ul class="nav-list">
+                {% for item in nav_items %}
+                <li>
+                    <a class="nav-link{% if item.key == active_key %} is-active{% endif %}"
+                       href="{% if item.key == 'contact' %}{% url 'panel:contact_edit' %}{% elif item.key == 'dashboard' %}{% url 'panel:dashboard' %}{% else %}{% url 'panel:resource_list' key=item.key %}{% endif %}">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon|safe }}</svg>
+                        <span class="nav-label">{{ item.label }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="sidebar-foot">
+                <div class="user-chip">
+                    <span class="user-dot"></span>
+                    <span>{{ user.username }}</span>
+                </div>
+                <form method="post" action="{% url 'panel:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-ghost">Log out</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="main">
+            <header class="topbar">
+                <div class="topbar-crumb">Charul Construction Console / {{ sheet_code }}</div>
+                <div class="topbar-meta">Signed in as {{ user.username }}</div>
+            </header>
+
+            <main class="content">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="message {{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% else %}
+        {% block content_anon %}{% endblock %}
+    {% endif %}
+</body>
+</html>

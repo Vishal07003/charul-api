@@ -12,5 +12,10 @@ class Practice(models.Model):
         null=True
     )
 
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
     def __str__(self):
         return self.title

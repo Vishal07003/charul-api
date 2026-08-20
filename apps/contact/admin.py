@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact
+from .models import Contact, Lead
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
@@ -7,11 +7,28 @@ class ContactAdmin(admin.ModelAdmin):
         "id",
         "phone",
         "email",
-        "studio",
+        "location",
     )
 
     search_fields = (
         "phone",
         "email",
-        "studio",
+        "location",
+    )
+
+
+@admin.register(Lead)
+class LeadAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "email",
+        "phone",
+        "created_at",
+    )
+
+    search_fields = (
+        "name",
+        "email",
+        "phone",
     )

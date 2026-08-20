@@ -9,7 +9,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="127.0.0.1,localhost",
+    default="*",
     cast=Csv()
 )
 
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "apps.practice",
     "apps.stats",
     "apps.process",
+    "apps.panel",
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": config("SQLITE_PATH", default=str(BASE_DIR / "db.sqlite3")),
     }
 }
 
@@ -110,16 +111,25 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = Path(config("MEDIA_ROOT", default=str(BASE_DIR / "media")))
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+LOGIN_URL = "panel:login"
 
-# CORS
+
+# CORS — allow any origin when serving by IP (no domain)
+CORS_ALLOW_ALL_ORIGINS = config("CORS_ALLOW_ALL_ORIGINS", default=True, cast=bool)
 CORS_ALLOWED_ORIGINS = config(
     "CORS_ALLOWED_ORIGINS",
-    default="http://localhost:5173",
+    default="",
+    cast=Csv()
+)
+
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="",
     cast=Csv()
 )
 
@@ -148,6 +158,12 @@ REST_FRAMEWORK = {
 
 # Production security
 if not DEBUG:
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
+
+# HTTPS enforcement is opt-in via USE_HTTPS, separate from DEBUG, so a plain
+# HTTP deployment (e.g. behind no proxy yet) can still run with DEBUG off.
+if config("USE_HTTPS", default=False, cast=bool):
     SECURE_SSL_REDIRECT = True
 
     SESSION_COOKIE_SECURE = True
@@ -156,6 +172,3 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = "DENY"

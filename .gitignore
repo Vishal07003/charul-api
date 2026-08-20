@@ -20,9 +20,13 @@ db.sqlite3-journal
 # Environment variables
 .env
 .env.*
+!.env.example
 
 # Media files uploaded by users
 media/
+
+# Docker / SQLite data volume
+data/
 
 # Static files
 staticfiles/

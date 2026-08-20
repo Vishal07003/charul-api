@@ -1,0 +1,57 @@
+{% extends "panel/base.html" %}
+{% block title %}{{ resource.label }} — Charul Construction Console{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div class="page-eyebrow">Sheet {{ sheet_code }} · {{ rows|length }} record{{ rows|length|pluralize }}</div>
+    <div class="page-head-row">
+        <h1 class="page-title">{{ resource.label }}</h1>
+        <a class="btn-primary" href="{% url 'panel:resource_create' key=key %}">Add {{ resource.singular|lower }}</a>
+    </div>
+</div>
+
+<div class="sheet">
+    <div class="sheet-bar">
+        <div class="sheet-bar-title">{{ resource.label }}</div>
+        <div class="sheet-bar-code">{{ sheet_code }}</div>
+    </div>
+
+    {% if resource.search_fields %}
+    <form method="get" class="search-row">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search {{ resource.label|lower }}">
+        <button type="submit" class="btn-secondary">Search</button>
+    </form>
+    {% endif %}
+
+    <div class="table-scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for field in resource.list_fields %}
+                    <th>{{ field }}</th>
+                    {% endfor %}
+                    <th class="col-actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for value in row.values %}
+                    <td class="mono">{{ value }}</td>
+                    {% endfor %}
+                    <td class="col-actions">
+                        <a href="{% url 'panel:resource_edit' key=key pk=row.pk %}">Edit</a>
+                        <a class="link-danger" href="{% url 'panel:resource_delete' key=key pk=row.pk %}">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="empty-row" colspan="{{ resource.list_fields|length|add:1 }}">
+                        No {{ resource.label|lower }} yet — add the first one.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
