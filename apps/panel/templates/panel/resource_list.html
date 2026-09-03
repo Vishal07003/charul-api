@@ -1,5 +1,5 @@
 {% extends "panel/base.html" %}
-{% block title %}{{ resource.label }} — Charul Construction Console{% endblock %}
+{% block title %}{{ resource.label }} - Charul Construction Console{% endblock %}
 {% block content %}
 <div class="page-head">
     <div class="page-eyebrow">Sheet {{ sheet_code }} · {{ rows|length }} record{{ rows|length|pluralize }}</div>
@@ -46,7 +46,7 @@
                 {% empty %}
                 <tr>
                     <td class="empty-row" colspan="{{ resource.list_fields|length|add:1 }}">
-                        No {{ resource.label|lower }} yet — add the first one.
+                        No {{ resource.label|lower }} yet - add the first one.
                     </td>
                 </tr>
                 {% endfor %}
