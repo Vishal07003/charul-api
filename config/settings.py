@@ -194,6 +194,7 @@ if not DEBUG:
 # HTTP deployment (e.g. behind no proxy yet) can still run with DEBUG off.
 if config("USE_HTTPS", default=False, cast=bool):
     SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
