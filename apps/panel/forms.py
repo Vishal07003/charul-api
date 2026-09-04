@@ -10,6 +10,7 @@ from apps.contact.models import Contact, Lead
 from apps.practice.models import Practice
 from apps.stats.models import Stat
 from apps.process.models import Process
+from apps.equipment.models import Equipment
 
 
 class LoginForm(AuthenticationForm):
@@ -180,3 +181,17 @@ class ProcessForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"class": "field-input"}),
             "description": forms.Textarea(attrs={"class": "field-input", "rows": 5}),
         }
+
+
+class EquipmentForm(forms.ModelForm):
+    class Meta:
+        model = Equipment
+        fields = ["name", "unit", "quantity", "image", "order"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "field-input"}),
+            "unit": forms.TextInput(attrs={"class": "field-input"}),
+            "quantity": forms.NumberInput(attrs={"class": "field-input"}),
+            "image": forms.ClearableFileInput(attrs={"class": "field-file"}),
+            "order": forms.NumberInput(attrs={"class": "field-input"}),
+        }
+
