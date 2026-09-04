@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "apps.practice",
     "apps.stats",
     "apps.process",
+    "apps.equipment",
     "apps.panel",
 ]
 
